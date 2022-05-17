@@ -89,7 +89,7 @@ void MobileManipulatorDummyVisualization::launchVisualizerNode(ros::NodeHandle& 
   }
 
   robotStatePublisherPtr_.reset(new robot_state_publisher::RobotStatePublisher(tree));
-  robotStatePublisherPtr_->publishFixedTransforms(true);
+  robotStatePublisherPtr_->publishFixedTransforms("", true);
 
   stateOptimizedPublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/mobile_manipulator/optimizedStateTrajectory", 1);
   stateOptimizedPosePublisher_ = nodeHandle.advertise<geometry_msgs::PoseArray>("/mobile_manipulator/optimizedPoseTrajectory", 1);
@@ -158,7 +158,7 @@ void MobileManipulatorDummyVisualization::publishObservation(const ros::Time& ti
   for (const auto& name : removeJointNames_) {
     jointPositions[name] = 0.0;
   }
-  robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp);
+  robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp, "");
 }
 
 /******************************************************************************************************/
